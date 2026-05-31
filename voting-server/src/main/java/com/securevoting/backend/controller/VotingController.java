@@ -97,6 +97,16 @@ public class VotingController {
         }
     }
 
+    @GetMapping("/votes")
+    public ResponseEntity<?> getAllVotes() {
+        try {
+            List<String> ciphertexts = votingService.getAllVotes();
+            return ResponseEntity.ok(Map.of("ciphertexts", ciphertexts));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.internalServerError().body("Error retrieving votes");
+        }
+    }
+
     @GetMapping("/tally/encrypted")
     public ResponseEntity<?> getEncryptedTally() {
         try {

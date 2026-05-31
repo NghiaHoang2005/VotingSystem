@@ -57,6 +57,18 @@ public class VotingService {
         return voteRepository.count();
     }
 
+    public List<String> getAllVotes() throws JsonProcessingException {
+        List<VoteEntity> votes = voteRepository.findAll();
+        List<String> ciphertexts = new ArrayList<>();
+        for (VoteEntity v : votes) {
+            List<String> strList = objectMapper.readValue(v.getCiphertextsJson(), new TypeReference<>() {});
+            if (!strList.isEmpty()) {
+                ciphertexts.add(strList.get(0));
+            }
+        }
+        return ciphertexts;
+    }
+
     public List<String> getEncryptedTally() throws JsonProcessingException {
         List<VoteEntity> votes = voteRepository.findAll();
         Optional<PublicKeyEntity> pkOpt = getPublicKey();

@@ -33,12 +33,24 @@ export function getRandomBigIntInRange(min: bigint, max: bigint): bigint {
   return min + randomVal;
 }
 
+export function gcd(a: bigint, b: bigint): bigint {
+  while (b !== 0n) {
+    let temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
+}
+
 export function encrypt(m: bigint, nStr: string): string {
   const n = BigInt(nStr);
   const nSq = n * n;
   const g = n + 1n;
   
-  let r = getRandomBigIntInRange(2n, n - 1n);
+  let r: bigint;
+  do {
+    r = getRandomBigIntInRange(2n, n - 1n);
+  } while (gcd(r, n) !== 1n);
 
   let gm = modPow(g, m, nSq);
   let rn = modPow(r, n, nSq);

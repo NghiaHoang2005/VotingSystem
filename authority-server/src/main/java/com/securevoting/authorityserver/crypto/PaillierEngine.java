@@ -19,6 +19,10 @@ public class PaillierEngine {
         BigInteger p = BigInteger.probablePrime(bitLength / 2, random);
         BigInteger q = BigInteger.probablePrime(bitLength / 2, random);
         
+        while (p.equals(q)) {
+            q = BigInteger.probablePrime(bitLength / 2, random);
+        }
+        
         BigInteger n = p.multiply(q);
         BigInteger nSquared = n.multiply(n);
         
