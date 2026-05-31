@@ -21,13 +21,8 @@ public class AuthorityController {
     private static final Logger logger = LoggerFactory.getLogger(AuthorityController.class);
 
     @PostMapping("/setup")
-    public ResponseEntity<?> setupElection(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+    public ResponseEntity<?> setupElection() {
         logger.info("/api/authority/setup called");
-        logger.debug("Received Authorization header present: {}", authHeader != null);
-        if (!isAuthorized(authHeader)) {
-            logger.warn("Unauthorized setup request - header present: {}", authHeader != null);
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
         // Generate 2048-bit keys
         logger.info("Authorized - generating Paillier keys");
         currentKeyPair = PaillierEngine.generateKeys(2048);
@@ -52,14 +47,8 @@ public class AuthorityController {
     }
 
     @PostMapping("/decrypt")
-    public ResponseEntity<?> decryptTally(@RequestHeader(value = "Authorization", required = false) String authHeader,
-                                          @RequestBody Map<String, String> payload) {
+    public ResponseEntity<?> decryptTally(@RequestBody Map<String, String> payload) {
         logger.info("/api/authority/decrypt called");
-        logger.debug("Received Authorization header present: {}", authHeader != null);
-        if (!isAuthorized(authHeader)) {
-            logger.warn("Unauthorized decrypt request - header present: {}", authHeader != null);
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
         if (currentKeyPair == null) {
             return ResponseEntity.badRequest().body("Election not setup yet.");
         }
@@ -75,16 +64,5 @@ public class AuthorityController {
         return ResponseEntity.ok(Map.of("result", m.toString()));
     }
 
-    private boolean isAuthorized(String authHeader) {
-        if (authHeader == null) return false;
-        String expected = System.getenv("SERVICE_AUTH");
-        if (expected == null || expected.isBlank()) {
-            // Fallback to demo credential used by VotingServer (encoded Basic)
-            String demo = "admin:SecureVoting@2026";
-            expected = "Basic " + Base64.getEncoder().encodeToString(demo.getBytes());
-        }
-        boolean match = authHeader.equals(expected);
-        logger.debug("Authorization header matches expected: {}", match);
-        return match;
-    }
+
 }
