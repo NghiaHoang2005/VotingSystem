@@ -25,6 +25,7 @@ export default function RootLayout({
             <a href="/tally-server" className="text-sm hover:text-primary transition-colors">Tally Server</a>
             <a href="/admin" className="text-sm hover:text-primary transition-colors">Admin Tally</a>
             <a href="/simulate" className="text-sm hover:text-primary transition-colors">Simulation</a>
+            <a href="/playground" className="text-sm hover:text-primary transition-colors">Playground</a>
           </div>
         </nav>
         <main className="min-h-[calc(100vh-100px)] flex flex-col items-center justify-center p-4">

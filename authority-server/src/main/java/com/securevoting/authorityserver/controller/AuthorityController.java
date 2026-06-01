@@ -26,6 +26,13 @@ public class AuthorityController {
         // Generate 2048-bit keys
         logger.info("Authorized - generating Paillier keys");
         currentKeyPair = PaillierEngine.generateKeys(2048);
+
+        logger.info("========== PAILLIER KEY PAIR GENERATED ==========");
+        logger.info("[PUBLIC KEY]  N = {}", currentKeyPair.getN().toString());
+        logger.info("[PUBLIC KEY]  g = {}", currentKeyPair.getG().toString());
+        logger.info("[PRIVATE KEY] lambda = {}", currentKeyPair.getLambda().toString());
+        logger.info("[PRIVATE KEY] mu     = {}", currentKeyPair.getMu().toString());
+        logger.info("=================================================");
         
         // Push public key to Voting Server
         String votingServerUrl = "http://localhost:8080/api/keys/public";
