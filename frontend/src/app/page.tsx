@@ -1,32 +1,41 @@
 export default function Home() {
   return (
     <div className="w-full max-w-4xl glass-panel p-10 flex flex-col items-center text-center animate-fade-in">
-      <h1 className="text-5xl font-extrabold mb-6 gradient-text">Next-Gen Secure Voting</h1>
+      <h1 className="text-5xl font-extrabold mb-6 gradient-text">Hệ Thống Bỏ Phiếu Bảo Mật</h1>
       <p className="text-xl text-slate-300 mb-10 max-w-2xl">
-        Experience the future of democracy. A fully decentralized, cryptographically secure election system powered by Threshold Paillier Homomorphic Encryption.
+        Hệ thống bầu cử phi tập trung, bảo mật bằng mật mã học, sử dụng mã hóa đồng cấu Paillier để đếm phiếu mà không cần giải mã từng lá phiếu.
       </p>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-        <a href="/tally-server" className="md:col-span-2 glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group border-blue-500/50 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-          <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors text-blue-400">🔥 Interactive Presentation Demo (Khuyên Dùng)</h2>
-          <p className="text-slate-400 text-sm">Giao diện thuyết trình trực quan chia 2 nửa màn hình. Theo dõi trực tiếp quá trình phiếu được mã hóa và cách máy chủ thực hiện phép toán Đồng cấu mù.</p>
+        {/* Featured: Tally Server */}
+
+
+        {/* Step 1 */}
+        <a href="/setup" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-blue-500/60"></div>
+          <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">1. Khởi Tạo Cuộc Bầu Cử</h2>
+          <p className="text-slate-400 text-sm">Sinh cặp khóa Paillier 2048-bit. Authority Server nắm Private Key, Voting Server chỉ nhận Public Key.</p>
         </a>
-        <a href="/setup" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group">
-          <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">1. Setup Election</h2>
-          <p className="text-slate-400 text-sm">Initialize a 2048-bit Paillier Key and split the private key among trustees (DKG Simulation).</p>
+
+        {/* Step 2 */}
+        <a href="/vote" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-green-500/60"></div>
+          <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">2. Bỏ Phiếu</h2>
+          <p className="text-slate-400 text-sm">Trình duyệt mã hóa lựa chọn bằng Public Key rồi gửi ciphertext lên máy chủ. Máy chủ không biết bạn chọn gì.</p>
         </a>
-        <a href="/vote" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group">
-          <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">2. Cast Vote</h2>
-          <p className="text-slate-400 text-sm">Encrypt your vote locally using the Public Key. The server never sees your plaintext choice.</p>
+
+        {/* Step 3 */}
+        <a href="/tally-server" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-purple-500/60"></div>
+          <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">3. Tally Server</h2>
+          <p className="text-slate-400 text-sm">Voting Server tích lũy các ciphertext bằng phép nhân đồng cấu, tạo ra một bản mã tổng duy nhất mà không giải mã.</p>
         </a>
-        <a href="/admin" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group">
-          <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">3. Tally & Decrypt</h2>
-          <p className="text-slate-400 text-sm">Watch the encrypted tally grow. Combine trustee shares to reveal the final results without ever reconstructing the private key.</p>
-        </a>
-        <a href="/simulate" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group">
-          <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">4. Mathematical Simulation</h2>
-          <p className="text-slate-400 text-sm">Step-by-step interactive breakdown of the Homomorphic Encryption and Threshold math.</p>
+
+        {/* Step 4 */}
+        <a href="/admin" className="glass-panel p-6 hover:bg-slate-800/50 transition-all cursor-pointer group relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-orange-500/60"></div>
+          <h2 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">4. Kết Quả Bầu Cử</h2>
+          <p className="text-slate-400 text-sm">Authority Server giải mã bản mã tổng để công bố kết quả cuối cùng — mà không cần biết từng phiếu riêng lẻ.</p>
         </a>
       </div>
     </div>

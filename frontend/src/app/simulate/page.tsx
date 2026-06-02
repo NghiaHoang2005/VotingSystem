@@ -220,6 +220,32 @@ export default function SimulatePage() {
                     <div className="text-base text-slate-300 pl-1">
                       <InlineMath math={`g = N + 1 = ${keys.g}`} />
                     </div>
+
+                    {/* Điều kiện chọn g */}
+                    <div className="mt-3 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 space-y-2">
+                      <p className="text-xs uppercase tracking-widest text-blue-400/80 font-semibold mb-2">Điều kiện để chọn g hợp lệ</p>
+
+                      <div className="space-y-2 text-sm text-slate-400">
+                        <div className="flex items-start gap-2">
+                          <span className="text-blue-400 font-bold shrink-0">①</span>
+                          <span>
+                            <InlineMath math="g \in \mathbb{Z}_{N^2}^*" /> — g phải thuộc nhóm nhân modulo N², tức là <InlineMath math="\gcd(g,\, N^2) = 1" />
+                          </span>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <span className="text-blue-400 font-bold shrink-0">②</span>
+                          <span>
+                            <InlineMath math="\gcd\!\left(L(g^\lambda \bmod N^2),\; N\right) = 1" /> — để μ khả nghịch mod N tồn tại
+                          </span>
+                        </div>
+                        <div className="mb-3 pb-3 border-b border-slate-800 text-sm text-slate-400">
+                          Hàm <InlineMath math="L" /> được định nghĩa: <InlineMath math="L(u) = \dfrac{u - 1}{N}" />{" "}
+                        </div>
+                        <div className="pt-2 border-t border-slate-800 text-slate-500">
+                          Chọn <InlineMath math="g = N + 1" /> luôn thỏa cả hai điều kiện và đơn giản hóa mã hóa thành <InlineMath math="(1 + mN) \cdot r^N \pmod{N^2}" />, nên được dùng làm chuẩn.
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
